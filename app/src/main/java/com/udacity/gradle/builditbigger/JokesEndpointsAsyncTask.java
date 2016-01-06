@@ -20,7 +20,6 @@ public class JokesEndpointsAsyncTask extends AsyncTask<Pair<Context, String>, St
     private Context context;
     @Override
     protected void onPostExecute(String result) {
-       // Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(context, JokeDisplayActivitiy.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(JokeDisplayActivitiy.JOKE_KEY, result);

@@ -30,7 +30,6 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onAdClosed() {
                 requestNewInterstitial();
-               // beginPlayingGame();
                 new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(getApplicationContext(), "text"));
 
             }
@@ -64,18 +63,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        //JokesLibrary jokelib = new JokesLibrary();
-        //String jokeToast = jokelib.tellAJoke();
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         } else {
             new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
         }
-        //Toast.makeText(this, jokeToast, Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(this, JokeDisplayActivitiy.class);
-//        intent.putExtra(JokeDisplayActivitiy.JOKE_KEY, jokeToast);
-//        startActivity(intent);
-
     }
 
     private void requestNewInterstitial() {
