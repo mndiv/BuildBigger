@@ -8,14 +8,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 
 public class MainActivity extends ActionBarActivity {
 
-    String jokeToast;
+   // String jokeToast;
+    InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+               // beginPlayingGame();
+                new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(getApplicationContext(), "text"));
+
+            }
+        });
+
+        requestNewInterstitial();
 
     }
 
@@ -45,13 +66,26 @@ public class MainActivity extends ActionBarActivity {
     public void tellJoke(View view){
         //JokesLibrary jokelib = new JokesLibrary();
         //String jokeToast = jokelib.tellAJoke();
-        new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        }
         //Toast.makeText(this, jokeToast, Toast.LENGTH_SHORT).show();
 //        Intent intent = new Intent(this, JokeDisplayActivitiy.class);
 //        intent.putExtra(JokeDisplayActivitiy.JOKE_KEY, jokeToast);
 //        startActivity(intent);
 
     }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("B7D9FC27980BC2AEDB833FAAA1F5C148")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+    }
+
 
 
 }
