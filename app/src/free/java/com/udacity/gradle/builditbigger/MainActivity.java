@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -21,7 +22,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
+
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
@@ -35,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        requestNewInterstitial();*/
+        requestNewInterstitial();
 
     }
 
@@ -63,11 +64,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        /*if (mInterstitialAd.isLoaded()) {
+        if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
-        } else {*/
-            new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
-        //}
+        } else {
+        new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        }
     }
 
     private void requestNewInterstitial() {
@@ -81,3 +82,4 @@ public class MainActivity extends ActionBarActivity {
 
 
 }
+
