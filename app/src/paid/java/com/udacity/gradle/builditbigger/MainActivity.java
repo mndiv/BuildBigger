@@ -7,8 +7,8 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
 
@@ -16,29 +16,24 @@ public class MainActivity extends ActionBarActivity {
 
     // String jokeToast;
     InterstitialAd mInterstitialAd;
+    private ProgressBar spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-                new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(getApplicationContext(), "text"));
-
-            }
-        });
-
-        requestNewInterstitial();*/
-
+        spinner = (ProgressBar) findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
     }
 
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+        spinner.setVisibility(View.GONE);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,22 +57,9 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void tellJoke(View view){
-        /*if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {*/
-            new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
-        //}
+    public void tellJoke(View view) {
+        spinner.setVisibility(View.VISIBLE);
+        new JokesEndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+
     }
-
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("B7D9FC27980BC2AEDB833FAAA1F5C148")
-                .build();
-
-        mInterstitialAd.loadAd(adRequest);
-    }
-
-
-
 }
