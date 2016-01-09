@@ -9,13 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.google.android.gms.ads.InterstitialAd;
-
 
 public class MainActivity extends ActionBarActivity {
 
-    // String jokeToast;
-    InterstitialAd mInterstitialAd;
     private ProgressBar spinner;
 
     @Override
